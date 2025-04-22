@@ -5,6 +5,9 @@ import LandlordDashboard from "./pages/landlordDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PropertyDetails from "./pages/propertyDetail";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+
 import MyListings from "./pages/tenant/MyListings";
 import Messages from "./pages/tenant/Messages";
 import Notifications from "./pages/tenant/Notifications";
@@ -19,6 +22,7 @@ import BookingL from "./pages/landlord/BookingL";
 import ProfileL from "./pages/landlord/ProfileL";
 import EditListing from "./pages/landlord/Editlistings";
 
+
 function App() {
   return (
     <Router>
@@ -28,13 +32,14 @@ function App() {
           <Route path="/landlordDashboard" element={<LandlordDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="/tenant/my-listings" element={<MyListings />} />
           <Route path="/tenant/messages" element={<Messages />} />
           <Route path="/tenant/notifications" element={<Notifications />} />
           <Route path="/tenant/profile" element={<Profile />} />
           <Route path="/booking/:id" element={<Booking />} />
-
 
 
           <Route path="/landlord/my-listings" element={<MylistingsL />} />

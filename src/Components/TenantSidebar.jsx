@@ -6,7 +6,7 @@ function TenantSidebar() {
     <aside className="w-64 h-screen bg-[#E5E7EB] p-6 hidden md:block">
       <nav className="space-y-4 text-[16px] font-semibold">
         <Link to="/tenant/my-listings" className="block hover:text-black">
-          📋 My Listings
+          📋 Saved
         </Link>
         <Link to="/tenant/messages" className="block hover:text-black">
           💬 Messages

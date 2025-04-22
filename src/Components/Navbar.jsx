@@ -27,7 +27,7 @@ function LoggedInNavbar() {
         <ul className={`md:flex md:space-x-8 font-semibold text-[15px] absolute md:static top-16 left-0 w-full md:w-auto px-6 md:px-0 ${isOpen ? 'block' : 'hidden'}`}>
           <li className="py-2 md:py-0">
             <Link to="/TenantDashboard" className={({ isActive }) => `block hover:text-black ${isActive ? 'text-[#594E4E]' : ''}`}>
-              🏠 Dashboards
+              🏠 Dashboard
             </Link>
           </li>
           <li className="py-2 md:py-0">
