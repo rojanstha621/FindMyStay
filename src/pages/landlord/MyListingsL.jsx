@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import image1 from "../../assets/image1.jpg";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
+import listingData from "../ListingData";  // Assuming this is where your listing data is imported
 
 const MyListings = () => {
   const navigate = useNavigate();
-  const [listings, setListings] = useState([
-    {
-      id: 1,
-      title: "Luxury Flat in Lalitpur",
-      price: "Rs. 30,000/month",
-      image: image1,
-    },
-  ]);
+  
+  // Limiting the listings to the first 3
+  const [listings, setListings] = useState(listingData.slice(0, 3));
 
   const handleDelete = (id) => {
-    setListings(listings.filter((item) => item.id !== id));
+    setListings(listings.filter((item) => item.id !== id));  // Remove listing by ID
   };
 
   return (

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import TenantDashboard from './pages/TenantDashoard';
+import TenantDashboard from './pages/tenant/TenantDashoard';
 import PreLoginDashboard from "./pages/PreLoginDashboard";
-import LandlordDashboard from "./pages/landlordDashboard";
+import LandlordDashboard from "./pages/landlord/landlordDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PropertyDetails from "./pages/propertyDetail";
@@ -13,6 +13,9 @@ import Messages from "./pages/tenant/Messages";
 import Notifications from "./pages/tenant/Notifications";
 import Profile from "./pages/tenant/Profile";
 import Booking from "./pages/tenant/Booking";
+import ContactLandlordPage from "./pages/tenant/ContactLandlordPage"; 
+import Settings from "./pages/tenant/Settings";
+import PaymentHistory from "./pages/tenant/PaymentHistory";
 
 
 import MylistingsL from "./pages/landlord/MyListingsL";
@@ -21,6 +24,7 @@ import MessagesL from "./pages/landlord/Messages";
 import BookingL from "./pages/landlord/BookingL";
 import ProfileL from "./pages/landlord/ProfileL";
 import EditListing from "./pages/landlord/Editlistings";
+import LandlordPayments from "./pages/landlord/landlordPayments";
 
 
 function App() {
@@ -40,6 +44,9 @@ function App() {
           <Route path="/tenant/notifications" element={<Notifications />} />
           <Route path="/tenant/profile" element={<Profile />} />
           <Route path="/booking/:id" element={<Booking />} />
+          <Route path="/contact-landlord" element={<ContactLandlordPage />} />
+          <Route path="/tenant/settings" element={<Settings />} />
+          <Route path="/tenant/payments" element={<PaymentHistory />} />
 
 
           <Route path="/landlord/my-listings" element={<MylistingsL />} />
@@ -49,6 +56,7 @@ function App() {
           <Route path="/landlord/requests" element={<BookingL />} />
           <Route path="/landlord/profile" element={<ProfileL />} />
           <Route path="/landlord/edit-listing/:id" element={<EditListing />} />
+          <Route path="/landlord/payments" element={<LandlordPayments />} />
 
 
 

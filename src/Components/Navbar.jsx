@@ -4,41 +4,43 @@ import logo from '../assets/logo.png';
 
 function LoggedInNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const navLinkClass = ({ isActive }) =>
+    `hover:text-black transition-colors duration-200 ${
+      isActive ? 'text-[#594E4E]' : ''
+    }`;
+
   return (
-    <nav className="bg-[#FFFFFF] text-[#594E4E] font-body shadow-md">
-      <div className="max-w-7xl mx-auto px-0 py-6 flex justify-between items-center">
+    <nav className="bg-white text-[#594E4E] font-body shadow-md">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Find My Stay" className="h-8" />
           <span className="font-bold text-lg">FindMyStay</span>
-        </Link> 
+        </Link>
 
-        {/* Hamburger */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-xl focus:outline-none">
-            {isOpen ? '✖' : '☰'}
-          </button>
-        </div>
+        {/* Hamburger Menu */}
+        <button onClick={toggleMenu} className="md:hidden text-2xl focus:outline-none">
+          {isOpen ? '✖' : '☰'}
+        </button>
 
-        {/* Menu Items */}
-        <ul className={`md:flex md:space-x-8 font-semibold text-[15px] absolute md:static top-16 left-0 w-full md:w-auto px-6 md:px-0 ${isOpen ? 'block' : 'hidden'}`}>
+        {/* Navigation Links */}
+        <ul className={`md:flex items-center gap-8 font-semibold text-sm absolute md:static top-16 left-0 w-full md:w-auto bg-white px-6 md:px-0 shadow-md md:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
           <li className="py-2 md:py-0">
-            <Link to="/TenantDashboard" className={({ isActive }) => `block hover:text-black ${isActive ? 'text-[#594E4E]' : ''}`}>
+            <NavLink to="/landlordDashboard" className={navLinkClass}>
               🏠 Dashboard
-            </Link>
+            </NavLink>
           </li>
           <li className="py-2 md:py-0">
-            <Link to="/tenant/profile" className={({ isActive }) => `block hover:text-black ${isActive ? 'text-[#594E4E]' : ''}`}>
+            <NavLink to="/landlord/profile" className={navLinkClass}>
               👤 Profile
-            </Link>
+            </NavLink>
           </li>
-          <li className="py-2 md:py-0">
-            <Link to="/"className={({ isActive }) => `block hover:text-red ${isActive ? 'text-[#594E4E]' : ''}`}>
+          <li className="py-2 md:py-0 mt-2 md:mt-0 md:ml-6">
+            <NavLink to="/" className="block text-red-600 hover:text-red-800 border border-red-500 rounded-full px-4 py-1 transition-all duration-200">
               🚪 Logout
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

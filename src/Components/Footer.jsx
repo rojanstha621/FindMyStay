@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Importing Link from react-router-dom for navigation
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Social Media Icons
 
 function Footer() {
   return (
@@ -17,10 +19,10 @@ function Footer() {
         <div>
           <h3 className="text-md font-semibold mb-3">Navigation</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:underline">Home</a></li>
-            <li><a href="#" className="hover:underline">Services</a></li>
-            <li><a href="#" className="hover:underline">Contact</a></li>
-            <li><a href="#" className="hover:underline">Login</a></li>
+            <li><Link to="/" className="hover:underline">Home</Link></li>
+            <li><Link to="/services" className="hover:underline">Services</Link></li>
+            <li><Link to="/contact" className="hover:underline">Contact</Link></li>
+            <li><Link to="/login" className="hover:underline">Login</Link></li>
           </ul>
         </div>
 
@@ -28,20 +30,34 @@ function Footer() {
         <div>
           <h3 className="text-md font-semibold mb-3">Services</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:underline">Room Listings</a></li>
-            <li><a href="#" className="hover:underline">Roommate Matching</a></li>
-            <li><a href="#" className="hover:underline">Chatbot Help</a></li>
+            <li><Link to="/room-listings" className="hover:underline">Room Listings</Link></li>
+            <li><Link to="/roommate-matching" className="hover:underline">Roommate Matching</Link></li>
+            <li><Link to="/chatbot-help" className="hover:underline">Chatbot Help</Link></li>
           </ul>
         </div>
 
         {/* Contact */}
         <div>
           <h3 className="text-md font-semibold mb-3">Contact Us</h3>
-          <p className="text-sm">Email: support@findmystay.com</p>
-          <p className="text-sm mt-1">Phone: +977-9812345678</p>
+          <p className="text-sm">Email: <a href="mailto:support@findmystay.com" className="hover:underline">support@findmystay.com</a></p>
+          <p className="text-sm mt-1">Phone: <a href="tel:+9779812345678" className="hover:underline">+977-9812345678</a></p>
         </div>
       </div>
 
+      {/* Social Media */}
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-center space-x-6">
+        <a href="https://facebook.com" aria-label="Facebook" className="text-[#E0D6C5] hover:text-white">
+          <FaFacebook size={24} />
+        </a>
+        <a href="https://twitter.com" aria-label="Twitter" className="text-[#E0D6C5] hover:text-white">
+          <FaTwitter size={24} />
+        </a>
+        <a href="https://instagram.com" aria-label="Instagram" className="text-[#E0D6C5] hover:text-white">
+          <FaInstagram size={24} />
+        </a>
+      </div>
+
+      {/* Footer Bottom */}
       <div className="border-t border-[#E0D6C5] py-4 text-center text-sm">
         © {new Date().getFullYear()} FindMyStay. All rights reserved.
       </div>

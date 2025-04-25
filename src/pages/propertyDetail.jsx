@@ -1,13 +1,16 @@
-import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import listings from './ListingData';
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'; // Heart icons
 
 function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const property = listings.find((item) => item.id === parseInt(id));
+
+  const [isFavorited, setIsFavorited] = useState(false); // State to manage heart icon animation
 
   if (!property) {
     return (
@@ -17,71 +20,92 @@ function PropertyDetails() {
     );
   }
 
-  const handleAddToCart = () => { 
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const isAlreadyInCart = existingCart.some((item) => item.id === property.id);
-
-    if (!isAlreadyInCart) {
-      localStorage.setItem("cart", JSON.stringify([...existingCart, property]));
-      alert("Property added to cart!");
-    } else {
-      alert("Property is already in the cart.");
-    }
+  const handleFavoriteToggle = () => {
+    setIsFavorited(!isFavorited);
+    alert(isFavorited ? "Removed from favorites" : "Added to favorites");
   };
 
   const handleBookNow = () => {
     navigate(`/booking/${property.id}`, { state: { property } });
   };
-
   const handleContactLandlord = () => {
-    navigate(`/messages`, { state: { propertyId: property.id } });
+    navigate("/contact-landlord", { state: { propertyId: property.id } }); // Pass propertyId to the new page
   };
 
   return (
-    <div className="min-h-screen text-[#594E4E] font-body">
+    <div className="min-h-screen bg-gray-100 text-[#3C3C3C] font-body">
       <Navbar />
 
-      <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col lg:flex-row gap-6 mt-10 mx-4">
-        <div className="flex-1">
-          <img src={property.image} alt={property.title} className="rounded-xl w-full h-[400px] object-cover" />
+      {/* Property Details Section */}
+      <div className="max-w-screen-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl flex flex-col lg:flex-row gap-8">
+        {/* Image Section */}
+        <div className="flex-1 overflow-hidden rounded-xl shadow-lg">
+          <img
+            src={property.image}
+            alt={property.title}
+            className="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
+          />
         </div>
 
-        <div className="flex-1">
-          <h1 className="text-2xl font-bold mb-2">{property.title}</h1>
-          <p className="text-sm text-gray-600 mb-1">{property.location}</p>
-          <p className="text-lg font-semibold mb-4">{property.price}</p>
+        {/* Details Section */}
+        <div className="flex-1 space-y-6">
+          <h1 className="text-3xl font-semibold text-[#594E4E]">{property.title}</h1>
+          <p className="text-lg text-gray-700">{property.location}</p>
+          <p className="text-xl font-bold text-[#3D3D3D]">{property.price}</p>
 
-          <p className="mb-4">{property.description}</p>
+          <p className="text-base text-gray-600">{property.description}</p>
 
-          <ul className="list-disc pl-6 mb-6">
+          {/* Property Type */}
+          <p className="text-sm text-gray-600 font-semibold">Property Type: <span className="font-normal">{property.type}</span></p>
+
+          {/* Disability Features */}
+          {property.disability.length > 0 && (
+            <p className="text-sm text-gray-600 font-semibold">
+              Disability Features:{" "}
+              <span className="font-normal">
+                {property.disability.join(", ")}
+              </span>
+            </p>
+          )}
+
+          {/* Property Features */}
+          <ul className="list-disc pl-6 space-y-2 text-gray-600">
             {property.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
+              <li key={index} className="text-sm">{feature}</li>
             ))}
           </ul>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Heart Icon */}
             <button
-              onClick={handleAddToCart}
-              className="bg-[#594E4E] text-white px-4 py-2 rounded-lg hover:opacity-90"
+              onClick={handleFavoriteToggle}
+              className="flex items-center justify-center p-2 bg-transparent rounded-lg hover:bg-gray-200 transition-all duration-300"
             >
-              Add to Cart
+              {isFavorited ? (
+                <AiFillHeart className="text-red-600 text-3xl animate-heartbeat" />
+              ) : (
+                <AiOutlineHeart className="text-red-600 text-3xl" />
+              )}
             </button>
+
+            {/* Book Now & Contact Landlord Buttons */}
             <button
               onClick={handleBookNow}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:opacity-90"
+              className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition-colors duration-300"
             >
               Book Now
             </button>
             <button
               onClick={handleContactLandlord}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:opacity-90"
+              className="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition-colors duration-300"
             >
               Contact Landlord
             </button>
           </div>
         </div>
       </div>
-
+      <div className='mt-30'></div>        
       <Footer />
     </div>
   );

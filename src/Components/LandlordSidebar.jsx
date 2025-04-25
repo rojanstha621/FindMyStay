@@ -1,21 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function LandlordSidebar() {
+  const { pathname } = useLocation();
+
+  const linkClass = (path) =>
+    `block px-3 py-2 rounded transition-colors ${
+      pathname === path ? "bg-white text-black shadow" : "hover:text-black text-[#594E4E]"
+    }`;
+
   return (
-    <aside className="w-64 h-screen bg-[#E5E7EB] p-6 hidden md:block">
-      <nav className="space-y-4 text-[16px] font-semibold">
-        <Link to="/landlord/my-listings" className="block hover:text-black">
+    <aside className="w-70 h-screen bg-[#E5E7EB] p-6 hidden md:block overflow-y-auto shadow-md">
+      <h2 className="text-xl font-bold mb-6 text-[#594E4E]">Landlord Panel</h2>
+      <nav className="space-y-3 text-[16px] font-medium">
+        <Link to="/landlord/my-listings" className={linkClass("/landlord/my-listings")}>
           📋 My Listings
         </Link>
-        <Link to="/landlord/add-listings" className="block hover:text-black">
+        <Link to="/landlord/add-listings" className={linkClass("/landlord/add-listings")}>
           ➕ Add New Listing
         </Link>
-        <Link to="/landlord/messages" className="block hover:text-black">
+        <Link to="/landlord/messages" className={linkClass("/landlord/messages")}>
           💬 Messages
         </Link>
-        <Link to="/landlord/requests" className="block hover:text-black">
+        <Link to="/landlord/requests" className={linkClass("/landlord/requests")}>
           🔔 Booking Requests
+        </Link>
+        <Link to="/landlord/payments" className={linkClass("/landlord/payments")}>
+          💰 Payments
         </Link>
       </nav>
     </aside>
