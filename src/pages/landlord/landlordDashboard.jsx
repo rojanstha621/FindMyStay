@@ -50,7 +50,7 @@ function LandlordDashboard() {
   };
 
   return (
-    <div className="min-h-screen text-[#594E4E] font-body">
+    <div className="min-h-screen bg-white text-[#594E4E] font-body">
       <LandlordNavbar />
 
       <div className="flex">

@@ -6,6 +6,7 @@ import listingData from "../ListingData";
 import Chatbot from "../../Components/ChatBot";
 import RoommateMatch from "../../Components/RoommateMatch";
 import TenantSidebar from "../../Components/TenantSidebar";
+import PropertyListings from "../../Components/PropertyLisitngs"; // <-- Import it here!
 
 function TenantDashboard() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function TenantDashboard() {
 
   const [filtered, setFiltered] = useState(listingData);
   const [currentPage, setCurrentPage] = useState(1);
-  const listingsPerPage = 6;
+  const listingsPerPage = 8;
 
   const extractPrice = (price) => parseInt(price.replace(/[^\d]/g, ""), 10) || 0;
 
@@ -59,7 +60,7 @@ function TenantDashboard() {
   };
 
   return (
-    <div className="min-h-screen text-[#594E4E] font-body relative">
+    <div className="min-h-screen bg-white text-[#594E4E] font-body relative">
       <Navbar />
 
       <div className="flex">
@@ -97,24 +98,9 @@ function TenantDashboard() {
           </div>
 
           <h2 className="text-xl font-semibold mb-4">Available Listings</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {currentListings.map((listing) => (
-              <div key={listing.id} className="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
-                <img src={listing.image} alt={listing.title} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-2">{listing.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{listing.location}</p>
-                  <p className="text-sm font-semibold mb-3">{listing.price}</p>
-                  <button
-                    onClick={() => handleViewDetails(listing)}
-                    className="bg-[#594E4E] text-white px-4 py-2 rounded hover:opacity-90"
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          {/* Instead of manual cards, use PropertyListings here */}
+          <PropertyListings listings={currentListings} handleViewDetails={handleViewDetails} />
 
           {totalPages > 1 && (
             <div className="mt-8 flex justify-center gap-2">

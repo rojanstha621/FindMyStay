@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from "react-slick";
 import modern1 from '../assets/ModernHouse1.avif';
 import modern2 from '../assets/ModernHouse2.avif';
-import modern3 from '../assets/ModernHouse3.avif';
+import modern3 from '../assets/pexels-binyaminmellish-186077.jpg';
 
 const heroImages = [
   { id: 1, src: modern1, alt: "Modern House 1" },

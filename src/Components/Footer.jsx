@@ -30,9 +30,9 @@ function Footer() {
         <div>
           <h3 className="text-md font-semibold mb-3">Services</h3>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/room-listings" className="hover:underline">Room Listings</Link></li>
-            <li><Link to="/roommate-matching" className="hover:underline">Roommate Matching</Link></li>
-            <li><Link to="/chatbot-help" className="hover:underline">Chatbot Help</Link></li>
+            <li><Link to="#" className="hover:underline">Room Listings</Link></li>
+            <li><Link to="#" className="hover:underline">Roommate Matching</Link></li>
+            <li><Link to="#" className="hover:underline">Chatbot Help</Link></li>
           </ul>
         </div>
 

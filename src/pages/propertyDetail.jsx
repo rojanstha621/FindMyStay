@@ -1,114 +1,129 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import listings from './ListingData';
-import Navbar from "../Components/Navbar";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'; // Heart icons
+import Navbar from "../Components/Navbar";
+import listings from "../pages/ListingData";
 
-function PropertyDetails() {
+const PropertyDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const property = listings.find((item) => item.id === parseInt(id));
+  const property = listings.find(item => String(item.id) === String(id));
+  const [isFavorited, setIsFavorited] = useState(false);
 
-  const [isFavorited, setIsFavorited] = useState(false); // State to manage heart icon animation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleFavoriteToggle = () => {
+    setIsFavorited(!isFavorited);
+  };
+
+  const handleBookNow = () => {
+    navigate(`/booking/${property.id}`);
+  };
+
+  const handleContactLandlord = () => {
+    navigate(`/contact-landlord/${property.id}`);
+  };
 
   if (!property) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-xl text-red-600">
-        Property not found.
+      <div className="min-h-screen flex items-center justify-center text-xl font-semibold">
+        Property not found
       </div>
     );
   }
 
-  const handleFavoriteToggle = () => {
-    setIsFavorited(!isFavorited);
-    alert(isFavorited ? "Removed from favorites" : "Added to favorites");
-  };
-
-  const handleBookNow = () => {
-    navigate(`/booking/${property.id}`, { state: { property } });
-  };
-  const handleContactLandlord = () => {
-    navigate("/contact-landlord", { state: { propertyId: property.id } }); // Pass propertyId to the new page
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100 text-[#3C3C3C] font-body">
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      {/* Property Details Section */}
-      <div className="max-w-screen-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl flex flex-col lg:flex-row gap-8">
-        {/* Image Section */}
-        <div className="flex-1 overflow-hidden rounded-xl shadow-lg">
-          <img
-            src={property.image}
-            alt={property.title}
-            className="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
-          />
-        </div>
-
-        {/* Details Section */}
-        <div className="flex-1 space-y-6">
-          <h1 className="text-3xl font-semibold text-[#594E4E]">{property.title}</h1>
-          <p className="text-lg text-gray-700">{property.location}</p>
-          <p className="text-xl font-bold text-[#3D3D3D]">{property.price}</p>
-
-          <p className="text-base text-gray-600">{property.description}</p>
-
-          {/* Property Type */}
-          <p className="text-sm text-gray-600 font-semibold">Property Type: <span className="font-normal">{property.type}</span></p>
-
-          {/* Disability Features */}
-          {property.disability.length > 0 && (
-            <p className="text-sm text-gray-600 font-semibold">
-              Disability Features:{" "}
-              <span className="font-normal">
-                {property.disability.join(", ")}
-              </span>
-            </p>
-          )}
-
-          {/* Property Features */}
-          <ul className="list-disc pl-6 space-y-2 text-gray-600">
-            {property.features.map((feature, index) => (
-              <li key={index} className="text-sm">{feature}</li>
-            ))}
-          </ul>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* Heart Icon */}
+      <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-10">
+        {/* Left Column */}
+        <div className="flex flex-col justify-between space-y-4">
+          <div>
             <button
-              onClick={handleFavoriteToggle}
-              className="flex items-center justify-center p-2 bg-transparent rounded-lg hover:bg-gray-200 transition-all duration-300"
+              onClick={() => navigate(-1)}
+              className="mb-4 text-blue-600 hover:underline"
             >
-              {isFavorited ? (
-                <AiFillHeart className="text-red-600 text-3xl animate-heartbeat" />
-              ) : (
-                <AiOutlineHeart className="text-red-600 text-3xl" />
-              )}
+              ← Back to Listings
             </button>
 
-            {/* Book Now & Contact Landlord Buttons */}
+            <h1 className="text-3xl font-bold text-[#594E4E]">{property.title}</h1>
+            <p className="text-md text-gray-500 mt-1">{property.location}</p>
+            <p className="text-2xl font-semibold text-[#3D3D3D] mt-2">
+              {property.price}
+            </p>
+          </div>
+
+          <div className="border-t pt-4 text-sm space-y-3 text-gray-700">
+            <p>
+              <span className="font-semibold">Description:</span> {property.description}
+            </p>
+            <p>
+              <span className="font-semibold">Type:</span> {property.type}
+            </p>
+
+            {(property.features || []).length > 0 && (
+              <div className="mt-2">
+                <p className="font-semibold">Features:</p>
+                <ul className="list-disc list-inside text-gray-700">
+                  {property.features.map((feature, index) => (
+                    <li key={index}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {(property.disability || []).length > 0 && (
+              <div className="mt-2">
+                <p className="font-semibold">Disability Access:</p>
+                <ul className="list-disc list-inside text-gray-700">
+                  {property.disability.includes("wheelchair") && <li>Wheelchair Accessible</li>}
+                  {property.disability.includes("elevator") && <li>Elevator Available</li>}
+                  {property.disability.includes("no_steps") && <li>No Steps (Step-free)</li>}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               onClick={handleBookNow}
-              className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition-colors duration-300"
+              className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition"
             >
               Book Now
             </button>
             <button
               onClick={handleContactLandlord}
-              className="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition-colors duration-300"
+              className="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition"
             >
               Contact Landlord
             </button>
           </div>
         </div>
+
+        {/* Right Column */}
+        <div className="relative overflow-hidden rounded-xl shadow-lg">
+          <img
+            src={property.image || "https://via.placeholder.com/600x400"}
+            alt={property.title}
+            className="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <button
+            onClick={handleFavoriteToggle}
+            className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-md hover:scale-110 transition"
+          >
+            <span className="text-red-600 text-2xl rounded-lg">
+              {isFavorited ? "♥" : "♡"}
+            </span>
+          </button>
+        </div>
       </div>
-      <div className='mt-30'></div>        
+
       <Footer />
     </div>
   );
-}
+};
 
 export default PropertyDetails;

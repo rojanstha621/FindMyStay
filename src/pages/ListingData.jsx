@@ -33,7 +33,7 @@ const listings = [
   },
   {
     id: 2,
-    title: "Lakeview Apartment",
+    title: "Apartment",
     price: "Rs. 25,000/month",
     image: image2,
     location: "Pokhara, Nepal",
@@ -88,7 +88,7 @@ const listings = [
   },
   {
     id: 7,
-    title: "Affordable Apartment",
+    title: "Apartment",
     price: "Rs. 10,000/month",
     image: image7,
     location: "Chitwan, Nepal",
@@ -132,7 +132,7 @@ const listings = [
   },
   {
     id: 11,
-    title: "Studio Apartment",
+    title: "Apartment",
     price: "Rs. 18,000/month",
     image: image11,
     location: "Kathmandu, Nepal",
@@ -143,7 +143,7 @@ const listings = [
   },
   {
     id: 12,
-    title: "Spacious Apartment",
+    title: "Apartment",
     price: "Rs. 22,000/month",
     image: image12,
     location: "Pokhara, Nepal",
@@ -165,7 +165,7 @@ const listings = [
   },
   {
     id: 14,
-    title: "Luxury Family Home",
+    title: "Luxury Home",
     price: "Rs. 35,000/month",
     image: image14,
     location: "Bhaktapur, Nepal",
@@ -187,7 +187,7 @@ const listings = [
   },
   {
     id: 16,
-    title: "High-end Apartment",
+    title: "High-end Room",
     price: "Rs. 40,000/month",
     image: image16,
     location: "Lalitpur, Nepal",

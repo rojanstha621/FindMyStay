@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import Navbar from "../Components/Navbar";
+import { Link, NavLink } from 'react-router-dom'; // Notice: using both Link and NavLink
 import Footer from "../Components/Footer";
 import logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
 
 const Services = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // ACTIVE LINK STYLING FUNCTION
+  const navLinkClass = ({ isActive }) =>
+    `hover:text-black block px-3 py-1 rounded-md ${
+      isActive ? 'bg-[#F3F3F3] text-[#594E4E] font-bold shadow-md' : ''
+    }`;
 
   return (
     <div className="min-h-screen flex flex-col text-[#594E4E] font-body bg-white">
@@ -18,27 +23,40 @@ const Services = () => {
             <span className="font-bold text-lg text-black">FindMyStay</span>
           </Link>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-black focus:outline-none text-xl">
               {isOpen ? '✖' : '☰'}
             </button>
           </div>
 
+          {/* Navigation Links */}
           <ul className={`md:flex md:space-x-8 text-[16px] font-bold absolute md:static top-16 left-0 w-full md:w-auto bg-white px-6 md:px-0 ${isOpen ? 'block' : 'hidden'}`}>
             <li className="py-2 md:py-0">
-              <Link to="/" className="hover:text-black block">Home</Link>
+              <NavLink to="/" className={navLinkClass}>
+                Home
+              </NavLink>
             </li>
             <li className="py-2 md:py-0">
-              <Link to="/services" className="hover:text-black block">Services</Link>
+              <NavLink to="/services" className={navLinkClass}>
+                Services
+              </NavLink>
             </li>
             <li className="py-2 md:py-0">
-              <Link to="/contact" className="hover:text-black block">Contact</Link>
+              <NavLink to="/contact" className={navLinkClass}>
+                Contact
+              </NavLink>
             </li>
           </ul>
 
+          {/* Login/Signup Buttons */}
           <div className="hidden md:flex space-x-3">
-            <Link to="/login" className="px-4 py-2 border rounded-lg hover:bg-black hover:text-white">Log In</Link>
-            <Link to="/signup" className="px-4 py-2 border rounded-lg hover:bg-black hover:text-white">Sign Up</Link>
+            <Link to="/login" className="px-4 py-2 border rounded-lg hover:bg-black hover:text-white">
+              Log In
+            </Link>
+            <Link to="/signup" className="px-4 py-2 border rounded-lg hover:bg-black hover:text-white">
+              Sign Up
+            </Link>
           </div>
         </div>
       </nav>

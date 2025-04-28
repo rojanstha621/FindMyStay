@@ -7,9 +7,10 @@ function LoggedInNavbarLandlord() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinkClass = ({ isActive }) =>
-    `hover:text-black transition-colors duration-200 ${
-      isActive ? 'text-[#594E4E]' : ''
+    `hover:text-black transition-all duration-200 px-3 py-1 rounded-md ${
+      isActive ? 'bg-[#F3F3F3] text-[#594E4E] font-bold shadow-md' : ''
     }`;
+  
 
   return (
     <nav className="bg-white text-[#594E4E] font-body shadow-md">
@@ -26,7 +27,7 @@ function LoggedInNavbarLandlord() {
         </button>
 
         {/* Navigation Links */}
-        <ul className={`md:flex items-center gap-8 font-semibold text-sm absolute md:static top-16 left-0 w-full md:w-auto bg-white px-6 md:px-0 shadow-md md:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
+        <ul className={`md:flex items-center gap-8 font-semibold text-sm absolute md:static top-16 left-0 w-full md:w-auto bg-brand-bg px-6 md:px-0 shadow-md md:shadow-none ${isOpen ? 'block' : 'hidden'}`}>
           <li className="py-2 md:py-0">
             <NavLink to="/landlordDashboard" className={navLinkClass}>
               🏠 Dashboard

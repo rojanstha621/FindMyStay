@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
-
+import listingData from '../ListingData';
 
 function Booking() {
-  const { state } = useLocation();
-  const property = state?.property;
+  const { id } = useParams();
+  const [property, setProperty] = useState(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -16,9 +16,16 @@ function Booking() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
+  const placeholderImage = 'https://via.placeholder.com/400';
+
+  useEffect(() => {
+    const selected = listingData.find((item) => String(item.id) === String(id));
+    setProperty(selected);
+  }, [id]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: '' }); // Clear error on change
+    setErrors({ ...errors, [e.target.name]: '' });
   };
 
   const validateForm = () => {
@@ -43,9 +50,7 @@ function Booking() {
     setErrors({});
   };
 
-  const placeholderImage = 'https://via.placeholder.com/400';
-
-  if (!property) {
+  if (!id) {
     return (
       <div className="min-h-screen flex items-center justify-center text-red-600 text-xl">
         No property selected for booking.
@@ -53,14 +58,20 @@ function Booking() {
     );
   }
 
+  if (!property) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-700 text-xl">
+        Loading property...
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col justify-between text-[#594E4E] font-body bg-gray-50">
       <Navbar />
-
       <main className="flex-grow">
         <div className="max-w-4xl mx-auto mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Property Preview */}
             <div className="h-full">
               <img
                 src={property.image || placeholderImage}
@@ -69,7 +80,6 @@ function Booking() {
               />
             </div>
 
-            {/* Booking Form */}
             <div className="p-8">
               <h2 className="text-2xl font-bold mb-2">{property.title}</h2>
               <p className="text-gray-600 mb-4">{property.description}</p>

@@ -3,15 +3,14 @@ import Navbar from "../../Components/Navbar";
 import TenantSidebar from "../../Components/TenantSidebar";
 
 function PaymentHistory() {
-  // Sample payment data
+  // Sample payment data with tenant names
   const payments = [
-    { id: 1, date: "2025-04-01", amount: "Rs. 15,000", status: "Paid", receiptUrl: "/receipts/receipt1.pdf" },
-    { id: 2, date: "2025-03-01", amount: "Rs. 15,000", status: "Paid", receiptUrl: "/receipts/receipt2.pdf" },
-    { id: 3, date: "2025-02-01", amount: "Rs. 15,000", status: "Overdue", receiptUrl: null },
-    { id: 4, date: "2025-01-01", amount: "Rs. 15,000", status: "Paid", receiptUrl: "/receipts/receipt4.pdf" },
-    { id: 5, date: "2024-12-01", amount: "Rs. 15,000", status: "Paid", receiptUrl: "/receipts/receipt5.pdf" },
-    { id: 6, date: "2024-11-01", amount: "Rs. 15,000", status: "Overdue", receiptUrl: null },
-    // ...add more as needed
+    { id: 1, date: "2025-04-01", amount: "Rs. 15,000", status: "Paid", tenantName: "John Doe", receiptUrl: "/receipts/receipt1.pdf" },
+    { id: 2, date: "2025-03-01", amount: "Rs. 20,000", status: "Paid", tenantName: "Jane Smith", receiptUrl: "/receipts/receipt2.pdf" },
+    { id: 3, date: "2025-02-01", amount: "Rs. 17,000", status: "Overdue", tenantName: "Sam Brown", receiptUrl: null },
+    { id: 4, date: "2025-01-01", amount: "Rs. 30,000", status: "Paid", tenantName: "Lily White", receiptUrl: "/receipts/receipt4.pdf" },
+    { id: 5, date: "2024-12-01", amount: "Rs. 23,000", status: "Paid", tenantName: "Michael Green", receiptUrl: "/receipts/receipt5.pdf" },
+    { id: 6, date: "2024-11-01", amount: "Rs. 26,000", status: "Overdue", tenantName: "Olivia Black", receiptUrl: null },
   ];
 
   // Filters and pagination state
@@ -45,8 +44,8 @@ function PaymentHistory() {
   // Export to CSV using useCallback
   const handleExport = useCallback(() => {
     const rows = [
-      ["ID", "Date", "Amount", "Status"],
-      ...filteredPayments.map((p) => [p.id, p.date, p.amount, p.status]),
+      ["ID", "Date", "Amount", "Tenant Name", "Status"],
+      ...filteredPayments.map((p) => [p.id, p.date, p.amount, p.tenantName, p.status]),
     ];
     const csvContent =
       "data:text/csv;charset=utf-8," +
@@ -61,11 +60,11 @@ function PaymentHistory() {
   }, [filteredPayments]);
 
   return (
-    <div className="min-h-screen font-body text-[#594E4E] bg-gray-50 dark:bg-gray-900 dark:text-white">
+    <div className="min-h-screen font-body bg-brand-bg text-[#594E4E]">
       <Navbar />
       <div className="flex">
         <TenantSidebar />
-        <main className="flex-1 p-6 bg-white dark:bg-gray-800 transition-colors duration-200">
+        <main className="flex-1 p-6 bg-white transition-colors duration-200">
           <h2 className="text-2xl font-bold mb-4">💳 Payment History</h2>
 
           {/* Filters */}
@@ -114,7 +113,7 @@ function PaymentHistory() {
             {/* Export Button */}
             <button
               onClick={handleExport}
-              className="ml-auto bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+              className="ml-auto bg-[#594E4E] text-white px-4 py-2 rounded hover:opacity-90 transition"
             >
               Export CSV
             </button>
@@ -128,12 +127,13 @@ function PaymentHistory() {
               {currentPayments.map((p) => (
                 <div
                   key={p.id}
-                  className="p-4 border rounded-lg shadow-sm hover:shadow-md transition bg-white dark:bg-gray-700"
+                  className="p-4 border rounded-lg shadow-sm hover:shadow-md transition bg-white"
                 >
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-lg font-semibold">{p.amount}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                      <p className="text-sm text-gray-600">Tenant: {p.tenantName}</p>
+                      <p className="text-sm text-gray-600 text-gray-300">
                         Date: {p.date}
                       </p>
                     </div>
@@ -172,7 +172,7 @@ function PaymentHistory() {
               <button
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1 border rounded disabled:opacity-50"
+                className="px-3 py-1 border rounded disabled:opacity-50 bg-[#594E4E] text-white hover:opacity-90"
               >
                 Prev
               </button>
@@ -194,7 +194,7 @@ function PaymentHistory() {
                   setCurrentPage((p) => Math.min(p + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 border rounded disabled:opacity-50"
+                className="px-3 py-1 border rounded disabled:opacity-50 bg-[#594E4E] text-white hover:opacity-90"
               >
                 Next
               </button>

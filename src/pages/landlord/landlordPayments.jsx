@@ -53,6 +53,12 @@ function LandlordPayments() {
     );
   };
 
+  // Handle overdue notification
+  const handleOverdueNotification = (tenantName) => {
+    alert(`A notification has been sent to ${tenantName} regarding their overdue payment.`);
+    // Placeholder for email sending functionality
+  };
+
   return (
     <div className="min-h-screen font-body text-[#594E4E]">
       <LandlordNavbar />
@@ -99,6 +105,15 @@ function LandlordPayments() {
                       >
                         {payment.status === "Paid" ? "Mark Pending" : "Mark Paid"}
                       </button>
+                      {/* Overdue Notification Button */}
+                      {payment.status === "Pending" && (
+                        <button
+                          onClick={() => handleOverdueNotification(payment.tenant)}
+                          className="ml-4 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-all "
+                        >
+                          Notify Tenant
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

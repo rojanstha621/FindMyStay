@@ -32,22 +32,14 @@ function AddListing() {
     if (name === 'image' && files.length > 0) {
       const file = files[0];
       setFormData({ ...formData, image: file });
-
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
       reader.readAsDataURL(file);
     } else if (type === 'checkbox') {
-      if (name === 'features' || name === 'disability') {
-        setFormData({
-          ...formData,
-          [name]: checked
-            ? [...formData[name], value]
-            : formData[name].filter((item) => item !== value),
-        });
-      }
-    } else if (type === 'select-multiple') {
-      const options = [...e.target.selectedOptions].map((option) => option.value);
-      setFormData({ ...formData, [name]: options });
+      const updated = checked
+        ? [...formData[name], value]
+        : formData[name].filter((item) => item !== value);
+      setFormData({ ...formData, [name]: updated });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -68,7 +60,6 @@ function AddListing() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -87,7 +78,7 @@ function AddListing() {
       setPreview(null);
       setIsLoading(false);
       alert('Listing submitted successfully!');
-    }, 1000); // Simulate submission delay
+    }, 1000);
   };
 
   return (
@@ -95,114 +86,103 @@ function AddListing() {
       <LandlordNavbar />
       <div className="flex">
         <LandlordSidebar />
-        <main className="flex-1 flex justify-center items-center min-h-[calc(100vh-64px)] p-6">
+        <main className="flex-1 flex justify-center items-start p-6 bg-gray-50">
           <form
             onSubmit={handleSubmit}
             className="bg-white p-6 rounded-xl shadow-md space-y-4 w-full max-w-2xl"
           >
             <h1 className="text-2xl font-bold text-center mb-2">➕ Add New Listing</h1>
 
-            {errorMessage && <div className="text-red-600 text-center mb-2">{errorMessage}</div>}
+            {errorMessage && <div className="text-red-600 text-center">{errorMessage}</div>}
 
-            <div>
-              <label className="block font-semibold mb-1">Property Title</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="Apartment in Kathmandu"
-              />
-            </div>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Property Title"
+            />
 
-            <div>
-              <label className="block font-semibold mb-1">Price (Rs/month)</label>
-              <input
-                type="number"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="e.g., 15000"
-              />
-            </div>
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Price (Rs/month)"
+            />
 
-            <div>
-              <label className="block font-semibold mb-1">Property Type</label>
-              <select
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              >
-                <option value="">-- Select Type --</option>
-                <option value="room">Room</option>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-              </select>
-            </div>
+            <select
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 rounded px-3 py-2"
+            >
+              <option value="">-- Select Type --</option>
+              <option value="room">Room</option>
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+            </select>
 
-            <div>
-              <label className="block font-semibold mb-1">Description</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                rows="4"
-                className="w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="Describe the property, location, and features..."
-              ></textarea>
-            </div>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Description"
+            ></textarea>
 
-            <div>
-              <label className="block font-semibold mb-1">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="e.g., Kathmandu, Nepal"
-              />
-            </div>
+            <input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              placeholder="Location"
+            />
 
-            <div>
-              <label className="block font-semibold mb-1">Features</label>
-              <select
-                name="features"
-                value={formData.features}
-                onChange={handleChange}
-                multiple
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              >
-                {propertyTypeFeatures[formData.type]?.map((feature) => (
-                  <option key={feature} value={feature}>
-                    {feature}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {formData.type && (
+              <div>
+                <label className="block font-semibold mb-1">Features</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {propertyTypeFeatures[formData.type].map((feature) => (
+                    <label key={feature} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        name="features"
+                        value={feature}
+                        checked={formData.features.includes(feature)}
+                        onChange={handleChange}
+                      />
+                      <span>{feature}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block font-semibold mb-1">Disability Features</label>
-              <select
-                name="disability"
-                value={formData.disability}
-                onChange={handleChange}
-                multiple
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              >
-                {disabilityFeatures.map((disability) => (
-                  <option key={disability} value={disability}>
-                    {disability}
-                  </option>
+              <div className="grid grid-cols-2 gap-2">
+                {disabilityFeatures.map((feature) => (
+                  <label key={feature} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      name="disability"
+                      value={feature}
+                      checked={formData.disability.includes(feature)}
+                      onChange={handleChange}
+                    />
+                    <span>{feature}</span>
+                  </label>
                 ))}
-              </select>
+              </div>
             </div>
 
             <div>
@@ -225,7 +205,7 @@ function AddListing() {
 
             <button
               type="submit"
-              className="bg-[#594E4E] text-white px-6 py-2 rounded hover:opacity-90 transition duration-200 w-full"
+              className="bg-[#594E4E] text-white px-5 py-2 rounded hover:opacity-90 transition duration-200 w-full"
               disabled={isLoading}
             >
               {isLoading ? 'Submitting...' : 'Submit Listing'}

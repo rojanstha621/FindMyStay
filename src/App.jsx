@@ -44,7 +44,7 @@ function App() {
           <Route path="/tenant/notifications" element={<Notifications />} />
           <Route path="/tenant/profile" element={<Profile />} />
           <Route path="/booking/:id" element={<Booking />} />
-          <Route path="/contact-landlord" element={<ContactLandlordPage />} />
+          <Route path="/contact-landlord/:id" element={<ContactLandlordPage />} />
           <Route path="/tenant/settings" element={<Settings />} />
           <Route path="/tenant/payments" element={<PaymentHistory />} />
 

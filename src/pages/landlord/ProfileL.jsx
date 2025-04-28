@@ -5,10 +5,10 @@ import landlordProfile from "../../assets/landlordProfile.png"; // Replace with 
 
 function Profile() {
   const [formData, setFormData] = useState({
-    name: "Rojan Lama",
-    email: "rojanlama@example.com",
-    phone: "9801234567",
-    address: "Patan, Lalitpur, Nepal",
+    name: "Rojan Shrestha",
+    email: "rojanshrestha@gmail.com",
+    phone: "9828988214",
+    address: "Lalitpur, Nepal",
     profileImage: landlordProfile,
   });
 
