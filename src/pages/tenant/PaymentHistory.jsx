@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useCallback } from "react";
 import Navbar from "../../Components/Navbar";
 import TenantSidebar from "../../Components/TenantSidebar";
+import Footer from "../../Components/Footer";
+
 
 function PaymentHistory() {
   // Sample payment data with tenant names
@@ -202,6 +204,7 @@ function PaymentHistory() {
           )}
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

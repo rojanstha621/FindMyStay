@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import LandlordSidebar from "../../Components/LandlordSidebar"; // Changed
+import Footer from "../../Components/Footer";
 
 function LandlordSettings() {
   const navigate = useNavigate();
@@ -250,6 +251,7 @@ function LandlordSettings() {
 
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar";
 import TenantSidebar from "../../Components/TenantSidebar";
 import listingsData from "../ListingData"; // adjust path if needed
 import { Link } from "react-router-dom";
+import Footer from "../../Components/Footer";
 
 function MyListings() {
   const [listings, setListings] = useState([]);
@@ -23,11 +24,11 @@ function MyListings() {
   };
 
   return (
-    <div className="min-h-screen text-[#594E4E] font-body">
+    <div className="max-h-screen text-[#594E4E] font-body">
       <Navbar />
       <div className="flex">
         <TenantSidebar />
-        <main className="flex-1 bg-white p-6 rounded-xl shadow-md">
+        <main className="flex-1 bg-white p-6 rounded-xl shadow-md h-screen">
           <h2 className="text-2xl font-bold mb-6">🛒 Saved Listings</h2>
 
           {/* Loading Spinner */}
@@ -84,6 +85,8 @@ function MyListings() {
           )}
         </main>
       </div>
+      {/* <div className="mt-50" ></div> */}
+      <Footer />
     </div>
   );
 }

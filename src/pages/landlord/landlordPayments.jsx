@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
+import Footer from "../../Components/Footer";
 
 function LandlordPayments() {
   // State for payments
@@ -64,7 +65,7 @@ function LandlordPayments() {
       <LandlordNavbar />
       <div className="flex ">
         <LandlordSidebar />
-        <main className="p-6 w-full">
+        <main className="p-6 w-full h-screen">
           <h1 className="text-2xl font-bold mb-4">💸 Payment Tracking</h1>
           <div className="overflow-x-auto bg-white p-4 rounded-xl shadow">
             <table className="min-w-full text-sm text-left">
@@ -122,6 +123,7 @@ function LandlordPayments() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

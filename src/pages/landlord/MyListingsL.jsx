@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
 import listingData from "../ListingData";  // Assuming this is where your listing data is imported
+import Footer from "../../Components/Footer";
 
 const MyListings = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const MyListings = () => {
       <LandlordNavbar />
       <div className="flex">
         <LandlordSidebar />
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 h-screen">
           <h2 className="text-2xl font-bold mb-4">📋 My Listings</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {listings.map((listing) => (
@@ -59,6 +60,7 @@ const MyListings = () => {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 };

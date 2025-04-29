@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "../../Components/Navbar";
 import TenantSidebar from "../../Components/TenantSidebar";
+import Footer from "../../Components/Footer";
+
 
 function Notifications() {
   const notifications = [
@@ -17,7 +19,7 @@ function Notifications() {
       <div className="flex">
         <TenantSidebar />
 
-        <main className="flex-1 bg-white p-6 rounded-xl shadow-md">
+        <main className="flex-1 bg-white p-6 rounded-xl shadow-md h-screen">
           <h2 className="text-2xl font-bold mb-6">🔔 Notifications</h2>
 
           {notifications.length === 0 ? (
@@ -39,6 +41,7 @@ function Notifications() {
           )}
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

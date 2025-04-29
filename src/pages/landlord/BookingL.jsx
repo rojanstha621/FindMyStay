@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
+import Footer from "../../Components/Footer";
 
 function BookingL() {
   const [requests, setRequests] = useState([
@@ -146,6 +147,7 @@ function BookingL() {
           <p>{toastMessage}</p>
         </div>
       )}
+      <Footer />
     </div>
   );
 }

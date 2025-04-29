@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
+import Footer from "../../Components/Footer";
 
 function Messages() {
   const [messages, setMessages] = useState([
@@ -45,7 +46,7 @@ function Messages() {
       <LandlordNavbar />
       <div className="flex">
         <LandlordSidebar />
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 h-screen">
           <h2 className="text-2xl font-bold mb-4">📬 Messages</h2>
           {messages.length === 0 ? (
             <p>No messages yet.</p>
@@ -110,6 +111,7 @@ function Messages() {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 }

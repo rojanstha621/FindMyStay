@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import TenantSidebar from "../../Components/TenantSidebar";
+import Footer from "../../Components/Footer";
 
 function Settings() {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ function Settings() {
           {/* Delete Account Button */}
           <button
             onClick={() => setShowDeleteConfirm(true)}
-            className="absolute top-45 right-10 bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-xl shadow-lg transition-all"
+            className="absolute top-45 right-7 bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-xl shadow-lg transition-all"
           >
             Delete Account
           </button>
@@ -239,6 +240,7 @@ function Settings() {
           )}
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

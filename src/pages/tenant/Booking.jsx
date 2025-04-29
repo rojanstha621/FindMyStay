@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import listingData from '../ListingData';
+import Footer from '../../Components/Footer';
 
 function Booking() {
   const { id } = useParams();
@@ -191,6 +192,8 @@ function Booking() {
           </div>
         </div>
       </main>
+      
+      <Footer />
     </div>
   );
 }

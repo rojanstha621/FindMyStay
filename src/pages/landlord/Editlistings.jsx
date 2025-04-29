@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import LandlordNavbar from "../../Components/LandlordNavbar";
 import LandlordSidebar from "../../Components/LandlordSidebar";
+import Footer from "../../Components/Footer";
 
 const EditListing = () => {
   const navigate = useNavigate();
@@ -100,6 +101,7 @@ const EditListing = () => {
           </form>
         </main>
       </div>
+      <Footer />
     </div>
   );
 };

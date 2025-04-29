@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LandlordNavbar from '../../Components/LandlordNavbar';
 import LandlordSidebar from '../../Components/LandlordSidebar';
+import Footer from '../../Components/Footer';
 
 function AddListing() {
   const [formData, setFormData] = useState({
@@ -86,7 +87,7 @@ function AddListing() {
       <LandlordNavbar />
       <div className="flex">
         <LandlordSidebar />
-        <main className="flex-1 flex justify-center items-start p-6 bg-gray-50">
+        <main className="flex-1 flex justify-center items-start p-6 bg-gray-50 ">
           <form
             onSubmit={handleSubmit}
             className="bg-white p-6 rounded-xl shadow-md space-y-4 w-full max-w-2xl"
@@ -213,7 +214,8 @@ function AddListing() {
           </form>
         </main>
       </div>
-    </div>
+      <Footer />
+      </div>
   );
 }
 
