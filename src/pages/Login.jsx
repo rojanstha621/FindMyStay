@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import landlordIcon from "../assets/landlord.png";
 import tenantIcon from "../assets/tenant.png";
@@ -8,7 +8,26 @@ function Login() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState("");
+  const [showStored, setShowStored] = useState(false);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (showStored && storedToken) {
+      const parts = storedToken.split("+");
+      const emailFromToken = parts[0]?.replace("email: ", "") || "";
+      const passwordFromToken = parts[1]?.replace("password: ", "") || "";
+
+      setEmail(emailFromToken);
+      setPassword(passwordFromToken);
+    } else if (!showStored) {
+      // Clear fields when unchecked
+      setEmail("");
+      setPassword("");
+    }
+  }, [showStored]);
 
   const handleLogin = () => {
     if (!email || !password || !role) {
@@ -16,11 +35,19 @@ function Login() {
       return;
     }
 
-    // Simulate successful login
-    if (role === "landlord") {
-      navigate("/landlordDashboard");
+    const storedToken = localStorage.getItem("token");
+    const parts = storedToken?.split("+");
+    const storedEmail = parts?.[0]?.replace("email: ", "");
+    const storedPassword = parts?.[1]?.replace("password: ", "");
+
+    if (email === storedEmail && password === storedPassword) {
+      if (role === "landlord") {
+        navigate("/landlordDashboard");
+      } else {
+        navigate("/tenantDashboard");
+      }
     } else {
-      navigate("/tenantDashboard");
+      alert("Invalid credentials!");
     }
   };
 
@@ -46,6 +73,19 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <div className="mb-4 flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="showStored"
+            checked={showStored}
+            onChange={() => setShowStored(!showStored)}
+            className="cursor-pointer"
+          />
+          <label htmlFor="showStored" className="text-sm cursor-pointer">
+            Use stored credentials
+          </label>
+        </div>
 
         <div className="mb-4">
           <p className="mb-2 font-semibold">Login as:</p>
@@ -77,12 +117,6 @@ function Login() {
         >
           Login
         </button>
-
-        <div className="text-sm text-center mt-4">
-          <Link to="/forgot-password" className="text-blue-600 hover:underline">
-            Forgot Password?
-          </Link>
-        </div>
 
         <div className="text-sm text-center mt-2">
           Don't have an account?{" "}

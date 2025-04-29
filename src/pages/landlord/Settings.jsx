@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
-import TenantSidebar from "../../Components/TenantSidebar";
+import LandlordSidebar from "../../Components/LandlordSidebar"; // Changed
 
-function Settings() {
+function LandlordSettings() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("rojans033@gmail.com");
-  const [phone, setPhone] = useState("9828988214");
+  const [email, setEmail] = useState("landlord@example.com");
+  const [phone, setPhone] = useState("9800000000");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailNotifications, setEmailNotifications] = useState(true);
-  const [smsNotifications, setSmsNotifications] = useState(false);
+  const [smsAlerts, setSmsAlerts] = useState(true);
   const [twoFactorAuth, setTwoFactorAuth] = useState(false);
-  const [profileVisibility, setProfileVisibility] = useState(true);
+  const [autoApproveTenants, setAutoApproveTenants] = useState(false);
+  const [acceptBookingRequests, setAcceptBookingRequests] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleDeleteAccount = () => {
     setShowDeleteConfirm(false);
     setSuccessMessage("⚠️ Your account has been scheduled for deletion.");
-
     setTimeout(() => {
       setSuccessMessage("");
       navigate("/");
@@ -42,11 +42,9 @@ function Settings() {
       alert("Passwords do not match.");
       return;
     }
-
     setSuccessMessage("✅ Settings saved successfully!");
     setPassword("");
     setConfirmPassword("");
-
     setTimeout(() => {
       setSuccessMessage("");
     }, 3000);
@@ -56,9 +54,9 @@ function Settings() {
     <div className="min-h-screen font-body bg-brand-bg text-[#594E4E]">
       <Navbar />
       <div className="flex">
-        <TenantSidebar />
+        <LandlordSidebar /> {/* Changed */}
         <main className="flex-1 p-6 bg-white transition-colors duration-200">
-          <h2 className="text-3xl font-bold mb-8">⚙️ Settings</h2>
+          <h2 className="text-3xl font-bold mb-8">⚙️ Landlord Settings</h2>
 
           {successMessage && (
             <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-lg shadow">
@@ -86,7 +84,6 @@ function Settings() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
-                <p className="text-xs text-gray-500 mt-1">We’ll never share your email.</p>
               </div>
 
               <div>
@@ -97,7 +94,6 @@ function Settings() {
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
-                <p className="text-xs text-gray-500 mt-1">Add a number where we can reach you.</p>
               </div>
             </div>
           </section>
@@ -128,7 +124,6 @@ function Settings() {
                 />
               </div>
 
-              {/* Two-Factor Authentication Toggle */}
               <div className="flex items-center justify-between pt-4">
                 <span>Two-Factor Authentication</span>
                 <label className="inline-flex items-center cursor-pointer">
@@ -146,11 +141,10 @@ function Settings() {
             </div>
           </section>
 
-          {/* Preferences Section */}
+          {/* Notification Preferences Section */}
           <section className="bg-white p-6 rounded-xl shadow mb-8">
             <h3 className="text-xl font-semibold mb-4">🔔 Notification Preferences</h3>
             <div className="space-y-5">
-              {/* Email Notifications */}
               <div className="flex items-center justify-between">
                 <span>Email Notifications</span>
                 <label className="inline-flex items-center cursor-pointer">
@@ -166,59 +160,75 @@ function Settings() {
                 </label>
               </div>
 
-              {/* SMS Notifications */}
               <div className="flex items-center justify-between">
-                <span>SMS Notifications</span>
+                <span>Tenant SMS Alerts</span>
                 <label className="inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     className="sr-only"
-                    checked={smsNotifications}
-                    onChange={() => setSmsNotifications(!smsNotifications)}
+                    checked={smsAlerts}
+                    onChange={() => setSmsAlerts(!smsAlerts)}
                   />
-                  <div className={`w-11 h-6 rounded-full transition ${smsNotifications ? "bg-green-500" : "bg-gray-300"} relative`}>
-                    <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition transform ${smsNotifications ? "translate-x-full" : ""}`}></div>
+                  <div className={`w-11 h-6 rounded-full transition ${smsAlerts ? "bg-green-500" : "bg-gray-300"} relative`}>
+                    <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition transform ${smsAlerts ? "translate-x-full" : ""}`}></div>
                   </div>
                 </label>
               </div>
             </div>
           </section>
 
-          {/* Privacy Section */}
+          {/* Property Management Settings Section */}
           <section className="bg-white p-6 rounded-xl shadow mb-8">
-            <h3 className="text-xl font-semibold mb-4">🔒 Privacy Settings</h3>
-            <div className="flex items-center justify-between">
-              <span>Show My Profile to Others</span>
-              <label className="inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="sr-only"
-                  checked={profileVisibility}
-                  onChange={() => setProfileVisibility(!profileVisibility)}
-                />
-                <div className={`w-11 h-6 rounded-full transition ${profileVisibility ? "bg-green-500" : "bg-gray-300"} relative`}>
-                  <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition transform ${profileVisibility ? "translate-x-full" : ""}`}></div>
-                </div>
-              </label>
+            <h3 className="text-xl font-semibold mb-4">🏠 Property Management Settings</h3>
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <span>Accept Booking Requests</span>
+                <label className="inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={acceptBookingRequests}
+                    onChange={() => setAcceptBookingRequests(!acceptBookingRequests)}
+                  />
+                  <div className={`w-11 h-6 rounded-full transition ${acceptBookingRequests ? "bg-green-500" : "bg-gray-300"} relative`}>
+                    <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition transform ${acceptBookingRequests ? "translate-x-full" : ""}`}></div>
+                  </div>
+                </label>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span>Auto-Approve Tenant Applications</span>
+                <label className="inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={autoApproveTenants}
+                    onChange={() => setAutoApproveTenants(!autoApproveTenants)}
+                  />
+                  <div className={`w-11 h-6 rounded-full transition ${autoApproveTenants ? "bg-green-500" : "bg-gray-300"} relative`}>
+                    <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition transform ${autoApproveTenants ? "translate-x-full" : ""}`}></div>
+                  </div>
+                </label>
+              </div>
             </div>
           </section>
 
-          {/* Save Changes Button */}
+          {/* Save Button */}
           <div className="mt-8 flex justify-left">
             <button
               onClick={handleSave}
-              className=" bg-[#594E4E] hover:bg-[#473b3b] text-white px-8 py-3 rounded-xl shadow-lg transition-all  "
+              className="bg-[#594E4E] hover:bg-[#473b3b] text-white px-8 py-3 rounded-xl shadow-lg transition-all"
             >
               Save Changes
             </button>
           </div>
 
-          {/* Delete Confirmation Modal */}
+          {/* Delete Confirm Modal */}
           {showDeleteConfirm && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
               <div className="bg-white p-8 rounded-xl shadow-xl text-center max-w-sm space-y-5">
-                <h2 className="text-2xl font-bold text-red-600">Are you sure?</h2>
-                <p className="text-gray-600">This action cannot be undone. Your account and all data will be permanently deleted.</p>
+                <h2 className="text-2xl font-bold text-red-600">Are you absolutely sure?</h2>
+                <p className="text-gray-600">Deleting your account will remove all your properties and related data permanently.</p>
 
                 <div className="flex justify-center gap-4">
                   <button
@@ -237,10 +247,11 @@ function Settings() {
               </div>
             </div>
           )}
+
         </main>
       </div>
     </div>
   );
 }
 
-export default Settings;
+export default LandlordSettings;

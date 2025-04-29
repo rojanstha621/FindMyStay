@@ -1,8 +1,8 @@
 import React from 'react';
 import Slider from "react-slick";
-import modern1 from '../assets/ModernHouse1.avif';
-import modern2 from '../assets/ModernHouse2.avif';
-import modern3 from '../assets/pexels-binyaminmellish-186077.jpg';
+import modern1 from '../assets/pexels-binyaminmellish-186077.jpg';
+import modern2 from '../assets/pexels-imphoto-32870.jpg';
+import modern3 from '../assets/pexels-expect-best-79873-323780.jpg';
 
 const heroImages = [
   { id: 1, src: modern1, alt: "Modern House 1" },
@@ -41,14 +41,15 @@ function HeroCarousel() {
       
 
       {/* Centered Text */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center z-20">
-        <h1 className="text-5xl md:text-6xl font-bold drop-shadow-xl">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center z-20 mb-20">
+        <h1 className="text-5xl md:text-6xl font-bold drop-shadow-xl ">
           Find Your Dream Stay
         </h1>
         <p className="text-lg md:text-xl mt-4 drop-shadow-md">
           Browse. Filter. Discover Comfort.
         </p>
       </div>
+
     </div>
   );
 }

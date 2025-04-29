@@ -10,7 +10,7 @@ function TenantSidebar() {
     }`;
 
   return (
-    <aside className="w-64 h-screen bg-[#E5E7EB] p-6 hidden md:block overflow-y-auto ">
+    <aside className="w-70 h-full-screen screen bg-[#E5E7EB] p-6 hidden md:block overflow-y-auto ">
       <h2 className="text-xl font-bold mb-6 text-[#594E4E]">Tenant Panel</h2>
       <nav className="space-y-3 text-[16px] font-medium">
         <Link to="/tenant/my-listings" className={linkClass("/tenant/my-listings")}>

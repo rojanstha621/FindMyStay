@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link} from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { useNavigate } from "react-router-dom";
 
 function LoggedInNavbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -11,8 +13,14 @@ function LoggedInNavbar() {
       isActive ? 'bg-[#F3F3F3] text-[#594E4E] font-bold shadow-md' : ''
     }`;
 
+    const handleLogout = () => {
+
+      localStorage.removeItem('token'); // or sessionStorage.removeItem('token')
+      navigate('/'); // redirect to home
+    };
+    
   return (
-    <nav className="bg-white text-[#594E4E] font-body shadow-md">
+    <nav className="bg-white text-[#594E4E] font-body shadow-md outline">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
@@ -38,10 +46,13 @@ function LoggedInNavbar() {
             </NavLink>
           </li>
           <li className="py-2 md:py-0 mt-2 md:mt-0 md:ml-6">
-            <NavLink to="/" className="block text-red-600 hover:text-red-800 border border-red-500 rounded-full px-4 py-1 transition-all duration-200">
-              🚪 Logout
-            </NavLink>
-          </li>
+        <button 
+          onClick={handleLogout}
+          className="block text-red-600 hover:text-red-800 border border-red-500 rounded-full px-4 py-1 transition-all duration-200"
+        >
+          🚪 Logout
+        </button>
+    </li>
         </ul>
       </div>
     </nav>

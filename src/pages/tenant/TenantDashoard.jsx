@@ -60,9 +60,8 @@ function TenantDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#594E4E] font-body relative">
+    <div className="min-h-screen font-body bg-white text-[#594E4E]">
       <Navbar />
-
       <div className="flex">
         <TenantSidebar />
 
@@ -118,17 +117,18 @@ function TenantDashboard() {
         </main>
       </div>
 
+      {/* Floating Chatbot & Roommate Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col items-end gap-4 z-40">
         <button
           onClick={() => setShowChatbot(!showChatbot)}
-          className="bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full p-4 shadow-md"
+          className="bg-transparent-100 outline hover:bg-blue-200 text-black-800 rounded-full p-4 shadow-md"
           title="Open Chatbot"
         >
           🤖
         </button>
         <button
           onClick={() => setShowRoommate(!showRoommate)}
-          className="bg-pink-100 hover:bg-pink-200 text-pink-800 rounded-full p-4 shadow-md"
+          className="bg-transparent-100 outline hover:bg-pink-200 text-black-800 rounded-full p-4 shadow-md"
           title="Roommate Matching"
         >
           👯

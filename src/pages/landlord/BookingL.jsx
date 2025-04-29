@@ -74,10 +74,10 @@ function BookingL() {
   };
 
   return (
-    <div className="min-h-screen font-body bg-gray-100 text-[#594E4E]">
+    <div className="min-h-screen font-body bg-white text-[#594E4E]">
       <LandlordNavbar />
 
-      <div className="flex">
+      <div className="flex bg-brand-bg">
         <LandlordSidebar />
 
         <main className="flex-1 p-8">

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import LandlordNavbar from "../../Components/LandlordNavbar";
-import LandlordSidebar from "../../Components/LandlordSidebar";
-import landlordProfile from "../../assets/landlordProfile.png"; // Replace with actual image
+import LandlordFooter from "../../Components/Footer"; // (added footer to match tenant style)
+import landlordProfile from "../../assets/landlordProfile.png";
 
-function Profile() {
+function LandlordProfile() {
   const [formData, setFormData] = useState({
-    name: "Rojan Shrestha",
-    email: "rojanshrestha@gmail.com",
+    name: "Gharbeti Dada",
+    email: "gharbeti@gmail.com",
     phone: "9828988214",
-    address: "Lalitpur, Nepal",
+    address: "kathmandu, Nepal",
     profileImage: landlordProfile,
   });
 
@@ -42,123 +42,120 @@ function Profile() {
 
     setError("");
     setSuccess("✅ Profile updated successfully!");
-    console.log("Landlord Profile:", formData);
+
+    console.log("Updated Landlord Profile:", formData);
   };
 
   return (
-    <div className="min-h-screen font-body text-[#594E4E] flex flex-col">
+    <div className="min-h-screen text-[#594E4E] font-body bg-gray-50">
       <LandlordNavbar />
 
-      <div className="flex flex-1">
-        <LandlordSidebar />
+      <main className="max-w-5xl mx-auto p-6">
+        {/* Profile Preview Card */}
+        <section className="bg-white p-6 rounded-xl shadow-md flex items-center gap-8 mb-10">
+          <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+            <img
+              src={previewImage || formData.profileImage}
+              alt="Profile"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold">{formData.name}</h2>
+            <p className="text-gray-600">{formData.email}</p>
+            <p className="text-gray-600">{formData.phone}</p>
+            <p className="text-gray-600">{formData.address}</p>
+          </div>
+        </section>
 
-        <main className="flex-1 p-6 flex justify-center items-center min-h-[calc(100vh-4rem)]">
-          <div className="w-full max-w-2xl">
-            <h2 className="text-3xl font-bold mb-6 text-center">👤 Landlord Profile</h2>
+        {/* Form Section */}
+        <section className="bg-white p-8 rounded-xl shadow-md space-y-6">
+          <h3 className="text-2xl font-semibold mb-4">✏️ Update Your Information</h3>
 
-            {error && <p className="text-red-600 mb-4 font-medium text-center">{error}</p>}
-            {success && <p className="text-green-600 mb-4 font-medium text-center">{success}</p>}
+          {error && <div className="bg-red-100 text-red-700 p-3 rounded">{error}</div>}
+          {success && <div className="bg-green-100 text-green-700 p-3 rounded">{success}</div>}
 
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white shadow-md p-6 rounded-xl space-y-6"
-            >
-              {/* Profile Image Upload */}
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
-                  {previewImage ? (
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <img
-                      src={formData.profileImage}
-                      alt="Current"
-                      className="object-cover w-full h-full"
-                    />
-                  )}
-                </div>
-                <div>
-                  <label className="block font-semibold mb-1">
-                    Upload Profile Picture
-                  </label>
-                  <input
-                    type="file"
-                    name="profileImage"
-                    accept="image/*"
-                    onChange={handleChange}
-                    className="text-sm"
-                  />
-                </div>
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Profile Image Upload */}
+            <div>
+              <label className="block font-semibold mb-2">Profile Picture</label>
+              <input
+                type="file"
+                name="profileImage"
+                accept="image/*"
+                onChange={handleChange}
+                className="text-sm"
+              />
+            </div>
 
-              {/* Full Name */}
-              <div>
-                <label className="block font-semibold mb-1">Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-4 py-2"
-                  placeholder="Your name"
-                />
-              </div>
+            {/* Name */}
+            <div>
+              <label className="block font-semibold mb-2">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                placeholder="Enter full name"
+              />
+            </div>
 
-              {/* Email */}
-              <div>
-                <label className="block font-semibold mb-1">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-4 py-2"
-                  placeholder="you@example.com"
-                />
-              </div>
+            {/* Email */}
+            <div>
+              <label className="block font-semibold mb-2">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                placeholder="Enter email address"
+              />
+            </div>
 
-              {/* Phone */}
-              <div>
-                <label className="block font-semibold mb-1">Phone Number</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-4 py-2"
-                  placeholder="9800000000"
-                />
-              </div>
+            {/* Phone */}
+            <div>
+              <label className="block font-semibold mb-2">Phone Number</label>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                placeholder="Enter phone number"
+              />
+            </div>
 
-              {/* Address */}
-              <div>
-                <label className="block font-semibold mb-1">Address</label>
-                <textarea
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-4 py-2"
-                  placeholder="Your full address"
-                  rows={3}
-                />
-              </div>
+            {/* Address */}
+            <div>
+              <label className="block font-semibold mb-2">Address</label>
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                placeholder="Enter full address"
+                rows={3}
+              />
+            </div>
 
-              {/* Submit */}
+            {/* Save Button */}
+            <div className="flex justify-end pt-4">
               <button
                 type="submit"
-                className="bg-[#594E4E] text-white px-6 py-2 rounded hover:opacity-90 transition duration-200"
+                className="bg-[#594E4E] hover:bg-[#453C3C] text-white px-8 py-3 rounded text-lg transition duration-300"
               >
-                Update Profile
+                Save Changes
               </button>
-            </form>
-          </div>
-        </main>
-      </div>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <LandlordFooter />
     </div>
   );
 }
 
-export default Profile;
+export default LandlordProfile;

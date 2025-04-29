@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Social M
 
 function Footer() {
   return (
-    <footer className="bg-[#2F2A2A] text-[#FFFFFF] font-body border-t border-[#E0D6C5]">
+    <footer className="bg-[#303442] text-[#ffffff] font-body border-t border-[#E0D6C5]">
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 sm:grid-cols-2 gap-8">
         {/* About */}
         <div>

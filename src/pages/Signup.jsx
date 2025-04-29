@@ -28,6 +28,8 @@ function Signup() {
     }
 
     // Simulate signup success
+    const token = `email: ${email}+password: ${password}+rojanDada`;
+    localStorage.setItem("token", token);
     navigate("/login");
   };
 

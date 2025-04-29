@@ -10,7 +10,8 @@ function LandlordSidebar() {
     }`;
 
   return (
-    <aside className="w-70 h-screen bg-[#E5E7EB] p-6 hidden md:block overflow-y-auto shadow-md">
+    <aside className="w-70 h-screen screen bg-[#E5E7EB] p-6 hidden md:block overflow-y-auto ">
+
       <h2 className="text-xl font-bold mb-6 text-[#594E4E]">Landlord Panel</h2>
       <nav className="space-y-3 text-[16px] font-medium">
         <Link to="/landlord/my-listings" className={linkClass("/landlord/my-listings")}>
@@ -27,6 +28,9 @@ function LandlordSidebar() {
         </Link>
         <Link to="/landlord/payments" className={linkClass("/landlord/payments")}>
           💰 Payments
+        </Link>
+        <Link to="/landlord/settings" className={linkClass("/landlord/settings")}>
+          ⚙️ Settings
         </Link>
       </nav>
     </aside>

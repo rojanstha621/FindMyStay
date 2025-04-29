@@ -36,23 +36,24 @@ function PreLoginDashboard() {
     return parseInt(num, 10) || 0;
   };
 
+  
   const filterListings = (listing) => {
     const { city, type, price, disability } = filters;
-    const priceValue = extractPriceValue(listing.price);
-
-    const matchesCity = city === '' || listing.location.toLowerCase().includes(city.toLowerCase());
-    const matchesType = type === '' || (listing.type && listing.type === type);
+    const priceValue = extractPriceValue(listing.price || '');
+  
+    const matchesCity = city === '' || listing.location?.toLowerCase().includes(city.toLowerCase());
+    const matchesType = type === '' || listing.type === type;
     const matchesPrice =
       price === '' ||
       (price === 'low' && priceValue < 15000) ||
       (price === 'mid' && priceValue >= 15000 && priceValue <= 30000) ||
       (price === 'high' && priceValue > 30000);
     const matchesDisability =
-      disability === '' || (listing.disability && listing.disability.includes(disability));
-
+      disability === '' || listing.disability?.includes(disability);
+  
     return matchesCity && matchesType && matchesPrice && matchesDisability;
   };
-
+  
   const applyFilters = () => {
     const results = listings.filter(filterListings);
     setFilteredListings(results);
@@ -121,7 +122,7 @@ function PreLoginDashboard() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="max-w-6xl mx-auto px-6 py-6 bg-white rounded-xl shadow-md -mt-60 z-50 relative"
+        className="max-w-6xl mx-auto px-6 py-6 bg-white rounded-xl shadow-md -mt-45 z-50 relative"
       >
         <div className="grid md:grid-cols-5 gap-4">
           <input
@@ -185,7 +186,7 @@ function PreLoginDashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="max-w-8xl mx-auto px-30 py-12 mt-50"
+        className="max-w-8xl mx-auto  py-12 mt-20"
       >
         <PropertyListings listings={filteredListings} />
       </motion.section>
@@ -194,14 +195,14 @@ function PreLoginDashboard() {
       <div className="fixed bottom-6 right-6 flex flex-col items-end gap-4 z-40">
         <button
           onClick={() => setShowChatbot(!showChatbot)}
-          className="bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-full p-4 shadow-md"
+          className="bg-black-600 outline hover:bg-blue-200 text-black-800 rounded-full p-4 shadow-md"
           title="Open Chatbot"
         >
           🤖
         </button>
         <button
           onClick={() => setShowRoommate(!showRoommate)}
-          className="bg-pink-100 hover:bg-pink-200 text-pink-800 rounded-full p-4 shadow-md"
+          className="bg-black-100 outline hover:bg-pink-200 text-black-800 rounded-full p-4 shadow-md"
           title="Roommate Matching"
         >
           👯

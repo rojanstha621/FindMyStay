@@ -6,6 +6,8 @@ import listingData from '../ListingData';
 function Booking() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
+  const [convertedPrice, setConvertedPrice] = useState(null);
+  const [selectedCurrency, setSelectedCurrency] = useState("NPR");
 
   const [formData, setFormData] = useState({
     name: '',
@@ -18,10 +20,38 @@ function Booking() {
 
   const placeholderImage = 'https://via.placeholder.com/400';
 
+  const conversionRates = {
+    NPR: 1,
+    USD: 0.0084,
+    EUR: 0.0076,
+  };
+
   useEffect(() => {
     const selected = listingData.find((item) => String(item.id) === String(id));
     setProperty(selected);
   }, [id]);
+
+  useEffect(() => {
+    if (property) {
+      convertCurrency(selectedCurrency);
+    }
+  }, [selectedCurrency, property]);
+
+  const convertCurrency = (currency) => {
+    if (!property || !property.price) return;
+
+    const priceMatch = property.price.match(/[\d,]+/);
+    if (!priceMatch) {
+      setConvertedPrice(null);
+      return;
+    }
+
+    const rawPrice = parseFloat(priceMatch[0].replace(/,/g, ""));
+    const rate = conversionRates[currency] || 1;
+    const result = rawPrice * rate;
+
+    setConvertedPrice(result);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -83,7 +113,25 @@ function Booking() {
             <div className="p-8">
               <h2 className="text-2xl font-bold mb-2">{property.title}</h2>
               <p className="text-gray-600 mb-4">{property.description}</p>
-              <p className="font-semibold text-[#594E4E] mb-2">Price: Rs. {property.price}/month</p>
+              
+              <div className="mb-4">
+                <label className="font-semibold block mb-1">Price:</label>
+                <p className="mb-2">
+                  {convertedPrice !== null
+                    ? `${selectedCurrency} ${convertedPrice.toFixed(2)} / month`
+                    : "Price not available"}
+                </p>
+                <select
+                  value={selectedCurrency}
+                  onChange={(e) => setSelectedCurrency(e.target.value)}
+                  className="border rounded px-2 py-1"
+                >
+                  <option value="NPR">NPR</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                </select>
+              </div>
+
               <p className="text-sm text-gray-500 mb-6">Type: {property.type}</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

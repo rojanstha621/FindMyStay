@@ -76,7 +76,7 @@ function LandlordDashboard() {
 
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">My Listings</h2>
-            <Link to="/add-listing" className="text-blue-600 hover:underline">Add New Listing</Link>
+            <Link to="/landlord/add-listings" className="text-blue-600 hover:underline">Add New Listing</Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

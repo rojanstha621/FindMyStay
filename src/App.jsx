@@ -25,6 +25,16 @@ import BookingL from "./pages/landlord/BookingL";
 import ProfileL from "./pages/landlord/ProfileL";
 import EditListing from "./pages/landlord/Editlistings";
 import LandlordPayments from "./pages/landlord/landlordPayments";
+import LandlordSettings from "./pages/landlord/Settings";
+
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 
 function App() {
@@ -32,8 +42,8 @@ function App() {
     <Router>
       <Routes>
           <Route path="/" element={<PreLoginDashboard />} />
-          <Route path="/tenantDashboard" element={<TenantDashboard />} />
-          <Route path="/landlordDashboard" element={<LandlordDashboard />} />
+          <Route path="/tenantDashboard" element={<ProtectedRoute><TenantDashboard /> </ProtectedRoute> } />
+          <Route path="/landlordDashboard" element={<ProtectedRoute><LandlordDashboard /> </ProtectedRoute> } />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/services" element={<Services />} />
@@ -57,6 +67,7 @@ function App() {
           <Route path="/landlord/profile" element={<ProfileL />} />
           <Route path="/landlord/edit-listing/:id" element={<EditListing />} />
           <Route path="/landlord/payments" element={<LandlordPayments />} />
+          <Route path="/landlord/settings" element={<LandlordSettings />}  />
 
 
 

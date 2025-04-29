@@ -60,9 +60,9 @@ function LandlordPayments() {
   };
 
   return (
-    <div className="min-h-screen font-body text-[#594E4E]">
+    <div className="min-h-screen bg-white font-body text-[#594E4E]">
       <LandlordNavbar />
-      <div className="flex">
+      <div className="flex ">
         <LandlordSidebar />
         <main className="p-6 w-full">
           <h1 className="text-2xl font-bold mb-4">💸 Payment Tracking</h1>
