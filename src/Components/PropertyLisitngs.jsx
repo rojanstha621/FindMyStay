@@ -5,7 +5,6 @@ import {
   FaDumbbell, FaLock, FaArrowUp
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import listings from '../pages/ListingData'; // Updated with new data
 
 const featureIcons = {
   "1 Bedroom": <FaBed />,
@@ -38,7 +37,7 @@ const conversionRates = {
   NPR: 132.5
 };
 
-const PropertyListings = () => {
+const PropertyListings = ({ listings = [] }) => {
   const [currency, setCurrency] = useState('NPR');
 
   const convertPrice = (priceString) => {
@@ -58,6 +57,14 @@ const PropertyListings = () => {
       ? `Rs. ${Math.round(convertedPrice).toLocaleString()}/month`
       : `${currency} ${convertedPrice.toFixed(2)}/month`;
   };
+
+  if (listings.length === 0) {
+    return (
+      <div className="text-center py-20 text-gray-500 text-lg">
+        No properties match your search criteria.
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,7 +118,7 @@ const PropertyListings = () => {
               </div>
             </div>
 
-            {item.disability.length > 0 && (
+            {item.disability?.length > 0 && (
               <div className="flex flex-wrap gap-3 text-blue-600 text-lg mb-4 justify-end">
                 {item.disability.map((type) =>
                   disabilityIcons[type] ? (

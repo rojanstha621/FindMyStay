@@ -87,7 +87,7 @@ function AddListing() {
       <LandlordNavbar />
       <div className="flex">
         <LandlordSidebar />
-        <main className="flex-1 flex justify-center items-start p-6 bg-gray-50 ">
+        <main className="flex-1 flex justify-center items-start p-6 bg-gray-50 h-screen">
           <form
             onSubmit={handleSubmit}
             className="bg-white p-6 rounded-xl shadow-md space-y-4 w-full max-w-2xl"

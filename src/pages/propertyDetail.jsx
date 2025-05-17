@@ -167,7 +167,7 @@ const PropertyDetails = () => {
           <img
             src={property.image || "https://via.placeholder.com/600x400"}
             alt={property.title}
-            className="w-full h-[500px] object-cover transition-transform duration-500 hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
             onDoubleClick={handleFavoriteToggle}
           />
           <button

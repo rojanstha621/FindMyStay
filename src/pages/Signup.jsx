@@ -7,6 +7,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = () => {
@@ -26,8 +27,11 @@ function Signup() {
       setError("Passwords do not match.");
       return;
     }
+    if (!agreed) {
+      setError("You must agree to the Terms & Policy.");
+      return;
+    }
 
-    // Simulate signup success
     const token = `email: ${email}+password: ${password}+rojanDada`;
     localStorage.setItem("token", token);
     navigate("/login");
@@ -72,6 +76,25 @@ function Signup() {
           onChange={(e) => setConfirm(e.target.value)}
         />
 
+        <div className="flex items-center mb-4 text-sm">
+          <input
+            type="radio"
+            name="terms"
+            checked={agreed}
+            onChange={() => setAgreed(!agreed)}
+            className="mr-2"
+          />
+          <span>I agree to the</span>
+          <a
+            href="/terms.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 text-blue-600 underline"
+          >
+            Terms & Policy
+          </a>
+        </div>
+
         <button
           onClick={handleSignup}
           className="w-full bg-[#594E4E] text-white p-2 rounded hover:opacity-90"
@@ -87,7 +110,6 @@ function Signup() {
         </div>
       </div>
     </div>
-    
   );
 }
 

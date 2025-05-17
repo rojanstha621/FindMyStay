@@ -56,7 +56,7 @@ function LandlordDashboard() {
       <div className="flex">
         <LandlordSidebar />
 
-        <main className="flex-1 p-4 sm:p-6">
+        <main className="flex-1 p-4 sm:p-6 h-screen">
           <h1 className="text-2xl font-bold mb-4">Welcome Back, Landlord 👋</h1>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">

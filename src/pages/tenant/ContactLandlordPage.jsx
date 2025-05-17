@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import listingData from "../ListingData"; // <-- Import your data
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
+import Toast from "../../Components/Toast";
 
 function ContactLandlordPage() {
   const { id } = useParams();
@@ -12,6 +13,8 @@ function ContactLandlordPage() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+
 
   useEffect(() => {
     const matchedProperty = listingData.find(item => String(item.id) === String(id));
@@ -22,11 +25,16 @@ function ContactLandlordPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Message sent to the landlord of "${property?.title}"`);
+    setToast({ show: true, message: `Message sent to the landlord of "${property?.title}"`, type: "success" });
     setMessage("");
     setName("");
     setEmail("");
+  
+    setTimeout(() => {
+      setToast({ ...toast, show: false });
+    }, 3000);
   };
+
 
   if (loading) {
     return (
@@ -117,6 +125,14 @@ function ContactLandlordPage() {
           </p>
         </div>
       </div>
+
+      {toast.show && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, show: false })}
+        />
+      )}
 
       <Footer />
     </div>

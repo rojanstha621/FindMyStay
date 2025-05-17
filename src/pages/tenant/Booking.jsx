@@ -18,6 +18,7 @@ function Booking() {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [bookingConfirmed, setBookingConfirmed] = useState(false); // New state
 
   const placeholderImage = 'https://via.placeholder.com/400';
 
@@ -77,8 +78,16 @@ function Booking() {
     if (!validateForm()) return;
 
     setSuccessMessage(`✅ Booking confirmed for ${property.title} on ${formData.date}!`);
+    setBookingConfirmed(true);
     setFormData({ name: '', email: '', date: '' });
     setErrors({});
+  };
+
+  const handleCancelBooking = () => {
+    if (window.confirm("Are you sure you want to cancel your booking?")) {
+      setSuccessMessage("❌ Booking cancelled.");
+      setBookingConfirmed(false);
+    }
   };
 
   if (!id) {
@@ -100,7 +109,7 @@ function Booking() {
   return (
     <div className="min-h-screen flex flex-col justify-between text-[#594E4E] font-body bg-gray-50">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow h-screen">
         <div className="max-w-4xl mx-auto mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="h-full">
@@ -186,13 +195,23 @@ function Booking() {
               </form>
 
               {successMessage && (
-                <p className="text-green-600 font-semibold mt-4">{successMessage}</p>
+                <div className="mt-4">
+                  <p className="text-green-600 font-semibold">{successMessage}</p>
+
+                  {bookingConfirmed && (
+                    <button
+                      onClick={handleCancelBooking}
+                      className="mt-3 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
+                    >
+                      Cancel Booking
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>
         </div>
       </main>
-      
       <Footer />
     </div>
   );

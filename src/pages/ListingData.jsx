@@ -24,7 +24,7 @@ const listings = [
     id: 1,
     title: "1BHK Apartment",
     price: "Rs. 15,000/month",
-    image: image1,
+
     location: "Kathmandu, Nepal",
     description: "A 1BHK apartment with all basic amenities.",
     features: ["1 Bedroom", "1 Bathroom", "Balcony", "Furnished"],
@@ -46,7 +46,7 @@ const listings = [
     id: 3,
     title: "Single Room",
     price: "Rs. 12,000/month",
-    image: image3,
+
     location: "Lalitpur, Nepal",
     description: "A room for singles or students.",
     features: ["Studio", "High-Speed WiFi"],
